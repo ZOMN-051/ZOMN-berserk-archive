@@ -1,0 +1,208 @@
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap");
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+==========================================================================
+【AI HANDOVER NOTE】
+1. DESIGN PHILOSOPHY:
+   - Core design philosophy: Editorial Archive Atmosphere — a premium dark encyclopedia that honors Berserk's medieval gothic aesthetic while maintaining modern wiki functionality. The design fuses Neo-minimalism with Physicality (rim-light on cards, ambient shadows) and subtle Medieval Editorial touches (serif typography, parchment-toned text, aged gold accents).
+   - Visual style: Dark Scholarly Archive — near-black backgrounds with warm amber/gold primary accents and deep crimson secondary tones. The palette evokes aged manuscripts, candlelit libraries, and the somber yet noble atmosphere of Berserk's world. Cards use subtle rim-lighting and soft shadows to create depth without breaking the dark immersion.
+   - Why this style: Berserk is a dark fantasy masterpiece with medieval European influences. The archive must feel authoritative and reverent — like a preserved historical document — while remaining accessible and modern for fans searching quotes, episodes, and symbolism. The dark theme reduces eye strain for long reading sessions, and the warm gold/crimson palette connects to the series' iconic imagery (Brand of Sacrifice, Behelit, Dragonslayer).
+
+2. TYPOGRAPHY:
+   - Sans font (Inter): chosen for exceptional readability in long-form content (article bodies, metadata, search results). Inter's neutral modern clarity ensures that Portuguese text, episode numbers, timestamps, and character names remain crisp and accessible across all devices. It provides the professional wiki foundation without competing with the editorial headings.
+   - Display font (Cinzel): a refined serif with classical Roman proportions, evoking medieval manuscripts and premium editorial design. Used for headings ("BERSERK ARCHIVE BRASIL", article titles like "Judeau — Nunca fui o melhor em nada", section headers). Cinzel adds gravitas and timelessness, reinforcing the "archive" concept — this is not a casual blog, but a preserved collection of cultural moments.
+   - Mono font (JetBrains Mono): for code snippets, timestamps (07:18), episode/chapter references, and technical metadata. Its clarity ensures precision in data display.
+
+3. COLOR SYSTEM:
+   - Brand primary (amber/gold, hue ~45-50): derived from candlelight, aged gold leaf, and the warm glow often seen in Berserk's more hopeful moments (campfire scenes, Judeau's gentle presence). This hue (oklch L≈0.65 C≈0.14 H≈50) maps to --primary and --accent, used for interactive elements (search bar focus, links, buttons, sidebar highlights). It contrasts beautifully against the near-black background while feeling organic and medieval.
+   - Secondary (deep crimson, hue ~10-15): represents blood, sacrifice, the Brand — core to Berserk's visual identity. Used sparingly for destructive actions, warnings, and thematic accents (e.g. highlighting the Eclipse, danger symbols). This ensures the palette stays grounded in the series' darker themes.
+   - Semantic colors: success (muted forest green, hue ~145) for confirmations; warning (burnt orange, hue ~40) for cautions; destructive (crimson, hue ~10) for errors or thematic danger.
+   - Neutrals: all neutrals (background, card, muted, border) carry a faint warm tint (hue ~40-50, C≈0.01-0.02) to unify the palette and avoid sterile gray. Background is near-black (L≈0.08) with subtle warmth; foreground is parchment-toned (L≈0.88, slight amber tint) for aged manuscript feel.
+   - Dark mode is primary: light mode uses inverted values but maintains the warm-tinted neutrals and lower chroma for large surfaces.
+
+4. USAGE GUIDE:
+   - Layout type: Editorial Wiki — asymmetric layout with persistent sidebar navigation (menu: Início, Frases, Personagens, etc.), central content column for articles, and optional right rail for metadata/related content. Featured articles use a hero section with large typography. Search bar is prominent on homepage. Full-width on desktop, stacked on mobile.
+   - Recommended effects: subtle rim-light on cards (1px top border with --ring at low opacity), soft box-shadows for depth, backdrop-blur on modals/popovers (glassmorphism for overlays only, not main content). Avoid heavy blur on text areas — readability is paramount.
+   - Motion: moderate scroll-triggered reveals for article sections, smooth transitions on hover (cards lift slightly, links glow), fade-in for search results. Keep animations under 300ms to maintain the scholarly, deliberate pace.
+   - Variance level: HIGH editorial — bold serif headings, strong chroma contrast between primary (gold) and background (near-black), intentional use of crimson for thematic weight. This is not a minimal SaaS dashboard; it's a curated archive with personality.
+   - Project-specific rules: maintain WCAG AA contrast for all body text (parchment foreground on dark background tested); use Cinzel sparingly (headings only) to avoid fatigue; ensure search and filters are instant and accessible; structure content with clear hierarchy (title > context > quote > meaning > curiosity) as shown in the Judeau article template.
+==========================================================================
+*/
+
+:root {
+  /* Typography */
+  --font-sans: "Inter", system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, "Cascadia Code", monospace;
+  
+  /* Radius */
+  --radius: 0.5rem;
+
+  /* Core UI Tokens */
+  --background: oklch(0.98 0.01 50);
+  --foreground: oklch(0.15 0.02 45);
+  --card: oklch(0.96 0.012 48);
+  --card-foreground: oklch(0.15 0.02 45);
+  --popover: oklch(0.99 0.008 50);
+  --popover-foreground: oklch(0.12 0.02 45);
+  --primary: oklch(0.52 0.14 48);
+  --primary-foreground: oklch(0.98 0.01 50);
+  --secondary: oklch(0.92 0.015 45);
+  --secondary-foreground: oklch(0.18 0.02 45);
+  --muted: oklch(0.94 0.012 48);
+  --muted-foreground: oklch(0.45 0.02 45);
+  --accent: oklch(0.55 0.13 50);
+  --accent-foreground: oklch(0.98 0.01 50);
+  --destructive: oklch(0.48 0.18 12);
+  --destructive-foreground: oklch(0.98 0.01 50);
+  --border: oklch(0.88 0.015 48);
+  --input: oklch(0.88 0.015 48);
+  --ring: oklch(0.52 0.14 48);
+  
+  /* Chart Tokens */
+  --chart-1: oklch(0.52 0.14 48);
+  --chart-2: oklch(0.48 0.18 12);
+  --chart-3: oklch(0.55 0.12 145);
+  --chart-4: oklch(0.58 0.11 280);
+  --chart-5: oklch(0.62 0.10 35);
+  
+  /* Sidebar Tokens */
+  --sidebar: oklch(0.96 0.012 48);
+  --sidebar-foreground: oklch(0.18 0.02 45);
+  --sidebar-primary: oklch(0.52 0.14 48);
+  --sidebar-primary-foreground: oklch(0.98 0.01 50);
+  --sidebar-accent: oklch(0.92 0.015 45);
+  --sidebar-accent-foreground: oklch(0.18 0.02 45);
+  --sidebar-border: oklch(0.88 0.015 48);
+  --sidebar-ring: oklch(0.52 0.14 48);
+}
+
+.dark {
+  --background: oklch(0.08 0.015 45);
+  --foreground: oklch(0.88 0.025 48);
+  --card: oklch(0.12 0.018 45);
+  --card-foreground: oklch(0.88 0.025 48);
+  --popover: oklch(0.10 0.016 45);
+  --popover-foreground: oklch(0.90 0.025 48);
+  --primary: oklch(0.65 0.14 50);
+  --primary-foreground: oklch(0.10 0.015 45);
+  --secondary: oklch(0.18 0.025 45);
+  --secondary-foreground: oklch(0.88 0.025 48);
+  --muted: oklch(0.16 0.02 45);
+  --muted-foreground: oklch(0.62 0.025 48);
+  --accent: oklch(0.68 0.13 52);
+  --accent-foreground: oklch(0.10 0.015 45);
+  --destructive: oklch(0.52 0.20 12);
+  --destructive-foreground: oklch(0.95 0.015 48);
+  --border: oklch(0.22 0.022 45);
+  --input: oklch(0.22 0.022 45);
+  --ring: oklch(0.65 0.14 50);
+  
+  /* Chart Tokens */
+  --chart-1: oklch(0.65 0.14 50);
+  --chart-2: oklch(0.55 0.20 12);
+  --chart-3: oklch(0.62 0.13 148);
+  --chart-4: oklch(0.65 0.12 285);
+  --chart-5: oklch(0.68 0.11 38);
+  
+  /* Sidebar Tokens */
+  --sidebar: oklch(0.10 0.016 45);
+  --sidebar-foreground: oklch(0.88 0.025 48);
+  --sidebar-primary: oklch(0.65 0.14 50);
+  --sidebar-primary-foreground: oklch(0.10 0.015 45);
+  --sidebar-accent: oklch(0.18 0.025 45);
+  --sidebar-accent-foreground: oklch(0.88 0.025 48);
+  --sidebar-border: oklch(0.20 0.022 45);
+  --sidebar-ring: oklch(0.65 0.14 50);
+}
+
+@theme inline {
+  /* Shadcn Core Mapping */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Charts Mapping */
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* Sidebar Mapping */
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Typography */
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+
+  /* Radius */
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply scroll-smooth antialiased;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans min-h-screen;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+  }
+
+  code, pre {
+    @apply font-mono;
+  }
+
+  ::selection {
+    @apply bg-primary/20 text-primary;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/20 rounded-full hover:bg-muted-foreground/40;
+  }
+}
